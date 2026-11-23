@@ -1,0 +1,19 @@
+name: Unzip
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          unzip -q NexnonEngine.zip
+          cp -r NexnonEngine/. .
+          rm -rf NexnonEngine NexnonEngine.zip
+      - run: |
+          git config user.name "bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A
+          git commit -m "Extract project"
+          git push
