@@ -11,6 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Unzip project
+        run: unzip -q NexnonEngine.zip
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -21,15 +24,16 @@ jobs:
           gradle-version: "8.9"
 
       - name: Build release APK
+        working-directory: NexnonEngine
         run: gradle :app:assembleRelease --stacktrace
 
       - uses: actions/upload-artifact@v4
         with:
           name: NexnonEngine-release
-          path: app/build/outputs/apk/release/app-release.apk
+          path: NexnonEngine/app/build/outputs/apk/release/app-release.apk
 
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: build-reports
-          path: app/build/reports
+          path: NexnonEngine/app/build/reports
