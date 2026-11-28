@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Unzip project
-        run: unzip -q NexnonEngine.zip
+        run: unzip -q AstraEngine.zip
 
       - uses: actions/setup-java@v4
         with:
@@ -24,16 +24,16 @@ jobs:
           gradle-version: "8.9"
 
       - name: Build release APK
-        working-directory: NexnonEngine
+        working-directory: AstraEngine
         run: gradle :app:assembleRelease --stacktrace
 
       - uses: actions/upload-artifact@v4
         with:
-          name: NexnonEngine-release
-          path: NexnonEngine/app/build/outputs/apk/release/app-release.apk
+          name: AstraEngine-release
+          path: AstraEngine/app/build/outputs/apk/release/app-release.apk
 
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: build-reports
-          path: NexnonEngine/app/build/reports
+          path: AstraEngine/app/build/reports
